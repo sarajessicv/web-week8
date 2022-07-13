@@ -5,9 +5,13 @@ const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/Users");
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const storage = multer.memoryStorage()
+const upload = multer({ storage });
 
 
 router.post('/register',
+  upload.none(),
   body("email").isLength({ min: 3 }).trim().escape(),
   body("password").isLength({ min: 8 }).isStrongPassword(),
   (req, res, next) => {
@@ -33,8 +37,9 @@ router.post('/register',
               },
               (err, ok) => {
                 if (err) throw err;
-                return res.send("ok");
-                //return res.redirect("/users/login");
+                //return res.send("ok");
+                return res.redirect("/login.html");
+                //return res.json({"success": true});
               }
             );
           });
@@ -44,7 +49,13 @@ router.post('/register',
 
   });
 
+router.get('/login', (req, res, next) => {
+  res.render('login');
+});
+
+
 router.post('/login',
+  upload.none(),
   body("email").trim().escape(),
   body("password"),
   (req, res, next) => {
@@ -63,11 +74,11 @@ router.post('/login',
             jwt.sign(
               jwtPayload,
               process.env.SECRET,
-              
+
               (err, token) => {
-                if(token){
-                res.json({ "success": true, 'token': token})};
-                res.json({"note": 'no token'});
+                if (token) {
+                  res.json({ "success": true, token })
+                };
               }
             );
           }

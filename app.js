@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require("mongoose");
 
+var privateRouter = require('./routes/private');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var todoRouter = require('./routes/todos');
@@ -16,6 +17,9 @@ require("./passport.js");
 var app = express();
 
 app.use(passport.initialize());
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 
 const mongoDB = "mongodb://localhost:27017/testdb";
 mongoose.connect(mongoDB);
@@ -29,9 +33,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/private', passport.authenticate('jwt', {session: false}), indexRouter);
+app.use('/api/private', passport.authenticate('jwt', {session: false}), privateRouter);
 app.use('/api/todos', passport.authenticate('jwt', {session: false}), todoRouter);
 app.use('/api/user', usersRouter);
+app.use('/', indexRouter);
 
 module.exports = app;
 

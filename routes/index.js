@@ -1,11 +1,20 @@
 var express = require('express');
-const Users = require('../models/Users');
 var router = express.Router();
 
 
 router.get('/', (req, res, next) =>{
-      res.json({'email': req.user.email});
+      res.render("index", {title: 'Jotain'});
     }
+);
+
+router.get('/register.html', (req, res, next) =>{
+  res.render("register");
+}
+);
+
+router.get('/login.html', (req, res, next) =>{
+  res.render("login");
+}
 );
 
 module.exports = router;
