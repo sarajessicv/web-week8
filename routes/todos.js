@@ -3,7 +3,7 @@ const Todo = require('../models/Todo');
 var router = express.Router();
 
 
-router.post('/', (req, res, next) =>{
+router.post('/', (req, res, next) => {
     Todo.findOne({ user: req.user._id}, (err, user) => {
         if (err) {
           console.log(err);
@@ -31,6 +31,21 @@ router.post('/', (req, res, next) =>{
         }
     }
 );
+});
+
+router.get('/', (req, res, next) => {
+  Todo.findOne({user: req.user._id}, (err, user) => {
+    if (err) {
+      console.log(err);
+      throw err
+    };
+    if(user) {
+      return res.json(user.items);
+    }
+    else {
+      return res.json({});
+    }
+  });
 });
 
 module.exports = router;
