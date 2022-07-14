@@ -13,11 +13,11 @@ const upload = multer({ storage });
 router.post('/register',
   upload.none(),
   body("email").isLength({ min: 3 }).trim().escape(),
-  body("password").isLength({ min: 8 }).isStrongPassword(),
+  body("password").isStrongPassword().withMessage("Password is not strong enough"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array()[0].msg });
     }
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) {
@@ -25,7 +25,7 @@ router.post('/register',
         throw err
       };
       if (user) {
-        return res.status(403).json({ email: "Email already in use." });
+        return res.status(403).json({errors: "Email already in use"});
       } else {
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(req.body.password, salt, (err, hash) => {
@@ -62,10 +62,13 @@ router.post('/login',
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) throw err;
       if (!user) {
-        return res.status(403).json({ message: "Login failed :(" });
+        return res.status(403).json({ errors: "Invalid credientials" });
       } else {
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
           if (err) throw err;
+          if(!isMatch) {
+            return res.status(403).json({ errors: "Invalid credientials" });
+          }
           if (isMatch) {
             const jwtPayload = {
               id: user._id,

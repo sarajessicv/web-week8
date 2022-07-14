@@ -15,14 +15,14 @@ function initializeCode() {
     const submitBTN = document.getElementById("submit");
     submitBTN.addEventListener("submit", onSubmit);
 
-    const errorText = document.getElementById("error");
+    
 
 }
 
 function onSubmit(event) {
     event.preventDefault();
     console.log("entäs tänne");
-    
+    const errorText = document.getElementById("error");
     const formData = new FormData(event.target);
 
     fetch("/api/user/register", {
@@ -31,9 +31,13 @@ function onSubmit(event) {
     })
     .then((response) => response.json())
     .then((data) => {
-        if(data.success = true) {
+        if(data.success === true) {
             console.log("Pääsenkö");
             window.location.href="/login.html";
+        }
+        else {
+            console.log("####" + (data.errors));
+            errorText.innerText = data.errors;
         }
     });
 

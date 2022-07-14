@@ -20,7 +20,7 @@ function initializeCode() {
 function onSubmit(event) {
     event.preventDefault();
     console.log("entäs tänne");
-    
+    const errorText = document.getElementById("error");
     const formData = new FormData(event.target);
 
     fetch("/api/user/login", {
@@ -34,11 +34,8 @@ function onSubmit(event) {
             storeToken(data.token);
             window.location.href="/";
         } else {
-            if (data.message) {
-                document.getElementById("error").innerHTML = data.message;
-            }  else {
-                document.getElementById("error").innerHTML = "Very strange error!";
-            }
+                //console.log("####" + (data.errors));
+                errorText.innerText = data.errors;
         }
 
     });
