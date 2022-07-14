@@ -31,7 +31,7 @@ function onSubmit(event) {
     .then((data) => {
         if(data.success = true) {
             console.log("Pääsenkö");
-            window.location.href="/login.html";
+            window.location.href="http://localhost:1234/login.html";
         }
     });
 
