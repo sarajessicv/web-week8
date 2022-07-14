@@ -38,8 +38,8 @@ router.post('/register',
               (err, ok) => {
                 if (err) throw err;
                 //return res.send("ok");
-                return res.redirect("/login.html");
-                //return res.json({"success": true});
+                //return res.redirect("/login.html");
+                return res.json({"success": true});
               }
             );
           });

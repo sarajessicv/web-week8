@@ -23,7 +23,7 @@ function onSubmit(event) {
     
     const formData = new FormData(event.target);
 
-    fetch("http://localhost:1234/api/user/login", {
+    fetch("/api/user/login", {
         method: "POST",
         body: formData
     })
@@ -32,7 +32,7 @@ function onSubmit(event) {
         if(data.token) {
             console.log("Pääsenkö");
             storeToken(data.token);
-            window.location.href="http://localhost:1234/";
+            window.location.href="/";
         } else {
             if (data.message) {
                 document.getElementById("error").innerHTML = data.message;

@@ -23,7 +23,7 @@ function onSubmit(event) {
     
     const formData = new FormData(event.target);
 
-    fetch("http://localhost:1234/api/user/register", {
+    fetch("/api/user/register", {
         method: "POST",
         body: formData
     })
@@ -31,7 +31,7 @@ function onSubmit(event) {
     .then((data) => {
         if(data.success = true) {
             console.log("Pääsenkö");
-            window.location.href="http://localhost:1234/login.html";
+            window.location.href="/login.html";
         }
     });
 
