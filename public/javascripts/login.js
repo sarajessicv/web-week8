@@ -32,7 +32,7 @@ function onSubmit(event) {
         if(data.token) {
             console.log("Pääsenkö");
             storeToken(data.token);
-            window.location.href="/";
+            window.location.href="http://localhost:1234/";
         } else {
             if (data.message) {
                 document.getElementById("error").innerHTML = data.message;
