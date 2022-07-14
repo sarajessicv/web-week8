@@ -16,6 +16,7 @@ function initializeCode() {
     if(token){
         const logoutBTN = document.createElement("button");
         logoutBTN.setAttribute("value", "Logout");
+        logoutBTN.id = "logout";
         logoutBTN.innerHTML = "Logout";
         logoutBTN.classList.add("btn");
         content.appendChild(logoutBTN);
@@ -31,6 +32,10 @@ function initializeCode() {
             emailString.innerHTML = email.email;
             content.appendChild(emailString);
         })
+        const inputText = document.createElement("input");
+        inputText.type = "text";
+
+
         logoutBTN.addEventListener("click", logout);
     } else {
         const loginLink = document.createElement("a");
