@@ -4,6 +4,8 @@ block content
     h1="Registeration page"
     form(action="" method="POST" id="submit")
 
+        textarea(name="errorText", cols="30", rows="10", id="error") 
+
         label(for="email") Enter your email  
         input(type="email" name="email" id="email" placeholder="Email address" required)
 

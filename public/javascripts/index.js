@@ -38,7 +38,8 @@ function initializeCode() {
         })
         const inputText = document.createElement("input");
         inputText.type = "text";
-
+        inputText.id = "add-item";
+    
         content.appendChild(inputText);
 
         inputText.addEventListener("keypress", (event)=> {

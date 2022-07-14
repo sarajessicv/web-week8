@@ -15,6 +15,8 @@ function initializeCode() {
     const submitBTN = document.getElementById("submit");
     submitBTN.addEventListener("submit", onSubmit);
 
+    const errorText = document.getElementById("error");
+
 }
 
 function onSubmit(event) {

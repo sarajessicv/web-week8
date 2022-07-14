@@ -4,7 +4,7 @@ block content
     h1="Login page"
     form(action="" method="POST" id="submit")
 
-        div(id=error)
+        textarea(name="errorText", cols="30", rows="10", id="error") 
 
         label(for="email") Enter your email  
         input(type="email" name="email" id="email" placeholder="Email address" required)
