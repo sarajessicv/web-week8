@@ -62,12 +62,12 @@ router.post('/login',
     User.findOne({ email: req.body.email }, (err, user) => {
       if (err) throw err;
       if (!user) {
-        return res.status(403).json({ errors: "Invalid credientials" });
+        return res.status(403).json({ errors: "Invalid credentials" });
       } else {
         bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
           if (err) throw err;
           if(!isMatch) {
-            return res.status(403).json({ errors: "Invalid credientials" });
+            return res.status(403).json({ errors: "Invalid credentials" });
           }
           if (isMatch) {
             const jwtPayload = {
