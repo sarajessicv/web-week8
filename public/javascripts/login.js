@@ -23,7 +23,7 @@ function onSubmit(event) {
     
     const formData = new FormData(event.target);
 
-    fetch("/api/user/login", {
+    fetch("http://localhost:1234/api/user/login", {
         method: "POST",
         body: formData
     })
